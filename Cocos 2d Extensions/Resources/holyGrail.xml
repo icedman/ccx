@@ -1,0 +1,20 @@
+<layout justify="space-around" direction="column" align="center">
+    <flex visibility="show" minWidth="auto">
+        <CCMenuItem tag="101" parent="1" width="120" height="40">
+            <CCLabelBMFont string="item 1" font="konqa32.fnt" x="60" y="20"/>
+        </CCMenuItem>
+        <CCMenuItem tag="102" parent="1" width="100" height="40">
+            <CCLabelBMFont string="item 2" font="konqa32.fnt" x="50" y="20"/>
+        </CCMenuItem>
+    </flex>
+    <flex grow="1" minWidth="300" direction="row" align="end">
+        <CCLabelBMFont string="label" font="konqa32.fnt"/>
+        <CCSprite file="debugSprite.png" padding="10">
+            <CCSprite file="debugSprite.png" padding="10" x="20" y="20"/>
+        </CCSprite>
+    </flex>
+    <flex shrink="2" direction="row" minWidth="auto" minHeight="200">
+        <CCLabelBMFont font="konqa32.fnt">Hello world</CCLabelBMFont>
+        <CCLabelBMFont tag="123" string="item 4" font="konqa32.fnt"/>
+    </flex>
+</layout>
