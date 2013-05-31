@@ -9,6 +9,13 @@
 #import "CCXFlexBoxFactory.h"
 #import "CCXFlexBoxFactory+items.h"
 
+@implementation CCNode (string)
+
+- (void) setString:(NSString*)s
+{}
+
+@end
+
 @interface CCXFlexBoxFactory ()
 {
     NSMutableArray  *_flexStack;
@@ -29,17 +36,33 @@
 - (id) initWithUrl:(NSURL*)url node:(CCNode*)node
 {
     if (self = [self init]) {
-        
         _flexStack = [[NSMutableArray alloc]init];
         _nodeStack = [[NSMutableArray alloc]init];
-        _node = node;
-        
-        NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-        parser.delegate = self;
-        [parser parse];
-        [parser release];
+        [self loadUrl:url node:node];
     }
     return self;
+}
+
+- (void) loadUrl:(NSURL*)url node:(CCNode*)node
+{
+    _node = node;
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    parser.delegate = self;
+    [parser parse];
+    [parser release];
+}
+
+- (CCNode*) nodeByTag:(UInt32) tag
+{
+    CCNode *p = _node;
+    while(p!=nil) {
+        CCNode *res = [p getChildByTag:tag];
+        if (res != nil)
+            return  res;
+        p = p.parent;
+    }
+
+    return nil;
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
@@ -89,15 +112,21 @@
             [container setContainerAttributes:attributeDict];
             [topFlex addItem:container];
             parent = _node;
+            
+            NSString *val = [attributeDict valueForKey:@"animate"];
+            container.enableAnimation = [val intValue];
         }
-        
+
         [_nodeStack addObject:obj];
         
         NSInteger parentTag = 0;
         NSString *val = [attributeDict valueForKey:@"parent"];
         if (val != nil) {
             parentTag = [val integerValue];
-            parent = [_node getChildByTag:parentTag];
+            parent = [self nodeByTag:(UInt32)parentTag];
+            if (parent == nil) {
+                NSLog(@"parent not found: %d", (int)parentTag);
+            }
         }
         
         if (parent == nil)
@@ -122,17 +151,21 @@
     NSString *selName = [NSString stringWithFormat:@"create%@WithAttributes:", baseClass];
     SEL sel = NSSelectorFromString(selName);
     if ([self respondsToSelector:sel]) {
-        [_nodeStack removeLastObject];
+        if (_nodeStack.count)
+            [_nodeStack removeLastObject];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
+    NSString *trimmedString = [string stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmedString.length == 0)
+        return;
+    
     CCNode *topNode = [_nodeStack lastObject];
     if (topNode != nil) {
-        if ([topNode respondsToSelector:@selector(setString:)]) {
-            [topNode setString:string];
-        }
+        [topNode setString:string];
     }
 
 }

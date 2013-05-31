@@ -50,7 +50,7 @@
         if ([val isEqualToString:@"center"])
             self.align = kFlexBoxAlignCenter;
         if ([val isEqualToString:@"stretch"])
-            self.justify = kFlexBoxAlignStretch;
+            self.align = kFlexBoxAlignStretch;
     }
     
     val = [attributes valueForKey:@"visibility"];
@@ -76,7 +76,7 @@
     if (val != nil) {
         if ([val isEqualToString:@"auto"])
             self.minWidth = kFlexBoxAuto;
-        else  if ([val isEqualToString:@"none"])
+        else if ([val isEqualToString:@"none"])
             self.minWidth = kFlexBoxNone;
         else
             self.minWidth = [val intValue];
@@ -148,7 +148,14 @@
     if (val != nil) {
         self.tag = [val intValue];
     }
-    
+
+    val = [attributes valueForKey:@"visible"];
+    if (val != nil) {
+        self.visible = false;
+        if ([val isEqualToString:@"true"])
+            self.visible = true;
+    }
+
     val = [attributes valueForKey:@"x"];
     if (val != nil) {
         CGPoint p = self.position;
@@ -205,8 +212,9 @@
     if (string == nil)
         string = @"";
     NSString *fnt = [attributes valueForKey:@"font"];
-    if (fnt == nil)
-        return nil;
+    if (fnt == nil) {
+        fnt=@"veniceClassic-19.fnt";
+    }
     CCLabelBMFont *res = [CCLabelBMFont labelWithString:string fntFile:fnt];
     [res setNodeAttributes:attributes];
     return res;

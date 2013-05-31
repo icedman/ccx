@@ -11,6 +11,7 @@
 @interface CCXFlexBoxFactory : CCXFlexBox <NSXMLParserDelegate>
 
 - (id) initWithUrl:(NSURL*)url node:(CCNode*)node;
+- (void) loadUrl:(NSURL*)url node:(CCNode*)node;
 
 @end
 

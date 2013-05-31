@@ -42,6 +42,7 @@
 @synthesize parent = _parent;
 @synthesize root;
 @synthesize isVisible;
+@synthesize hasOverflow = _hasOverflow;
 
 // private
 @synthesize originalFrame    = _originalFrame;
@@ -68,7 +69,7 @@
         _items = [[NSMutableArray alloc]init];
         
         // default size
-        _frame = CGRectMake(0,0,100,100);
+        _frame = CGRectMake(0,0,0,0);
         
         _direction = kFlexBoxDirectionRow;
         _align = kFlexBoxAlignCenter;
@@ -77,8 +78,8 @@
         _grow = 0;
         _shrink = 1;
         
-        _minWidth = kFlexBoxNone;
-        _minHeight = kFlexBoxNone;
+        _minWidth = kFlexBoxAuto;
+        _minHeight = kFlexBoxAuto;
     }
     return self;
 }
@@ -255,7 +256,20 @@
     if (_minWidth > 0 && _computedSize.width < _minWidth)
         _computedSize.width = _minWidth;
     
-    // handle kFlexBoxAlignStretch
+    // handle kFlexBoxAlignStretch (todo!)
+    for (CCXFlexBox *item in _items) {
+        tFlexBoxAlign align = _align;
+        if (align == kFlexBoxAlignStretch) {
+            CGSize itemSize = item.computedSize;
+            if (_direction == kFlexBoxDirectionColumn)
+                itemSize.width = cs;
+            else
+                itemSize.height = cs;
+            item.computedSize = itemSize;
+        }
+    }
+    
+    // check overflow here
 }
 
 - (void) growItems
@@ -307,6 +321,9 @@
             CGRect f = item.frame;
             f.size = sz;
             item.frame = f;
+            
+            [item calculateSizes];
+            [item growItems];
         }
         
         CGSize sz = _minimumSize;
@@ -459,18 +476,21 @@
 
 - (void) layout
 {
+    [[CCDirector sharedDirector].scheduler unscheduleAllForTarget:self];
+    
     [self saveOriginalFrames];
     [self preLayout];
+    
     [self calculateSizes];
-    // fit items
     [self growItems];
     [self justifyItems];
     [self alignItems];
     [self calculateWorldPositions:_frame.origin];
+    
     [self postLayout];
     [self restoreOriginalFrames];
     
-    [[CCDirector sharedDirector].scheduler unscheduleAllForTarget:self];
+    [self animate];
 }
 
 - (void) preLayout
@@ -487,10 +507,63 @@
     }
 }
 
+
+- (void) animate
+{
+    for(CCXFlexBox *item in _items) {
+        [item animate];
+    }
+}
+
 - (void) scheduleLayout
 {
     [[CCDirector sharedDirector].scheduler unscheduleAllForTarget:self];
     [[CCDirector sharedDirector].scheduler scheduleSelector:@selector(layout) forTarget:self interval:0.1 paused:false];
+}
+
+- (id) copyWithZone:(NSZone *)zone
+{
+    CCXFlexBox *thisCopy = nil;
+    
+    if ([self isKindOfClass:[CCXFlexBoxNodeContainer class]]) {
+        CCXFlexBoxNodeContainer *container = (CCXFlexBoxNodeContainer*)self;
+        CCNode *nodeCopy = nil;
+        
+        if (container.node != nil) {
+            if ([container.node respondsToSelector:@selector(copyWithZone:)]) {
+                nodeCopy = [[container.node copy] autorelease];
+            } else {
+                nodeCopy = [[[CCNode alloc] init] autorelease];
+                nodeCopy.contentSize = container.node.contentSize;
+            }
+            
+            nodeCopy.tag = container.node.tag;
+            [container.node.parent addChild:nodeCopy];
+        }
+        
+        thisCopy = [[CCXFlexBoxNodeContainer alloc] initWithNode:nodeCopy];
+        
+    } else {
+        thisCopy = [[CCXFlexBox alloc] init];
+    }
+    
+    thisCopy.direction = self.direction;
+    thisCopy.justify = self.justify;
+    thisCopy.align = self.align;
+    thisCopy.visibility = self.visibility;
+    thisCopy.shrink = self.shrink;
+    thisCopy.grow = self.grow;
+    thisCopy.minWidth = self.minWidth;
+    thisCopy.minHeight =self.minHeight;
+    thisCopy.frame = self.frame;
+    thisCopy.tag = self.tag;
+    
+    for(CCXFlexBox *item in self.items) {
+        CCXFlexBox *itemCopy = [[item copy] autorelease];
+        [thisCopy addItem:itemCopy];
+    }
+    
+    return thisCopy;
 }
 
 @end
@@ -501,6 +574,8 @@
     UInt8 _pb;
     UInt8 _pr;
     UInt8 _pl;
+    
+    CGPoint _prevPosition;
 }
 @end
 
@@ -511,6 +586,7 @@
 @synthesize paddingBottom   = _paddingBottom;
 @synthesize paddingLeft     = _paddingLeft;
 @synthesize paddingRight    = _paddingRight;
+@synthesize enableAnimation = _enableAnimation;
 
 @synthesize node = _node;
 
@@ -545,6 +621,7 @@
     if (_pr == 0)
         _pr = _padding;
     
+    _prevPosition = _node.position;
     _node.position = CGPointZero;
     self.frame = CGRectMake(0,0,_node.contentSize.width + _pl + _pr,_node.contentSize.height + _pt + _pb);
     
@@ -561,10 +638,22 @@
     CGSize sz = [CCDirector sharedDirector].winSize;
     p.y = sz.height - p.y;
     
-    _node.position = p;
+    _node.position = p;    
     _node.visible = self.isVisible;
     
     [super postLayout];
+}
+
+- (void) animate
+{
+    if (!CGPointEqualToPoint(_prevPosition, CGPointZero) && _enableAnimation) {
+        CGPoint toPoint = _node.position;
+        _node.position = _prevPosition;
+        [_node.actionManager removeAllActionsFromTarget:_node];
+        [_node runAction:[CCMoveTo actionWithDuration:0.15 position: toPoint]];
+    }
+
+    [super animate];
 }
 
 @end

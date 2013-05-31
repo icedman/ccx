@@ -27,9 +27,11 @@
 
 @interface CCLabelBMFont (Format)
 
++ (id) labelWithUrl:(NSURL*)url fntFile:(NSString*)fnt;
 + (id) labelWithHTML:(NSString*)l fntFile:(NSString*)fnt;
 - (void) setFormattedString:(NSString*)s formatRuns:(CCArray*) formatRuns;
 - (void) updateFormat:(CCArray*) formatRuns;
 - (void) setHTML:(NSString*)html;
+- (void) setURL:(NSURL*)url;
 
 @end

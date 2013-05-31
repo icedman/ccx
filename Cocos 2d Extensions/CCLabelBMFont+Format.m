@@ -376,12 +376,35 @@
 
 @implementation CCLabelBMFont (Format)
 
++ (id) labelWithUrl:(NSURL*)url fntFile:(NSString*)fnt
+{
+    CCLabelBMFont *label = [CCLabelBMFont alloc];
+    [label initWithString:@"" fntFile:fnt];
+    [label setURL:url];
+    return [label autorelease];
+    return [label autorelease];
+}
+
 + (id) labelWithHTML:(NSString*)l fntFile:(NSString*)fnt
 {
     CCLabelBMFont *label = [CCLabelBMFont alloc];
-    [label initWithString:@"                               " fntFile:fnt];
+    [label initWithString:@"" fntFile:fnt];
     [label setHTML:l];
     return [label autorelease];
+}
+
+- (void) setURL:(NSURL*)url
+{
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    CXXMLParserDelegate *delegate = [[CXXMLParserDelegate alloc] init];
+    parser.delegate = delegate;
+    
+    [parser parse];
+    
+    [self setFormattedString:delegate.string formatRuns:delegate.formatRuns];
+    
+    [delegate release];
+    [parser release];
 }
 
 - (void) setHTML:(NSString*)html
@@ -397,7 +420,6 @@
 
     [delegate release];
     [parser release];
-    
 }
 
 - (void) setFormattedString:(NSString*)s formatRuns:(CCArray*) formatRuns;

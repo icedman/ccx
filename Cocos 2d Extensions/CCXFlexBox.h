@@ -63,6 +63,7 @@ typedef enum CCXFlexBoxSize {
 @property (assign) CCXFlexBox *parent;
 @property (readonly) CCXFlexBox *root;
 @property (readonly) bool isVisible;
+@property (readonly) bool hasOverflow;
 
 - (id) init;
 - (void) debugDraw;
@@ -74,6 +75,7 @@ typedef enum CCXFlexBoxSize {
 
 - (void) preLayout;
 - (void) postLayout;
+- (void) animate;
 
 @end
 
@@ -84,6 +86,7 @@ typedef enum CCXFlexBoxSize {
 @property UInt8 paddingBottom;
 @property UInt8 paddingLeft;
 @property UInt8 paddingRight;
+@property bool enableAnimation;
 
 @property (retain) CCNode* node;
 

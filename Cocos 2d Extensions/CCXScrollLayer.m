@@ -36,6 +36,9 @@
 @synthesize dragPosition    = _dragPosition;
 @synthesize zoom            = _zoom;
 @synthesize enabled         = _enabled;
+@synthesize hasTouches      = _hasTouches;
+
+@synthesize consumeTouches  = _consumeTouches;
 
 -(id) init
 {
@@ -67,6 +70,8 @@
 
 -(Boolean) touchBegan:(CGPoint) pos
 {
+    _hasTouches = YES;
+    
     if (!_enabled)
         return NO;
     
@@ -87,6 +92,8 @@
 
 -(void) touchEnded
 {
+    _hasTouches = NO;
+    
     if (!_enabled)
         return;
     
@@ -131,11 +138,11 @@
     
     _scrollPosition.x += diffX;
 
-#ifdef __CC_PLATFORM_IOS
-    _scrollPosition.y += diffY;
-#elif defined(__CC_PLATFORM_MAC)
+//#ifdef __CC_PLATFORM_IOS
+//    _scrollPosition.y += diffY;
+//#elif defined(__CC_PLATFORM_MAC)
     _scrollPosition.y -= diffY;
-#endif
+//#endif
     
     _velocity.x = diffX / interval;
     _velocity.y = diffY / interval;
@@ -159,11 +166,11 @@
     }
 
     _scrollPosition.x += _velocity.x * dt;
-#ifdef __CC_PLATFORM_IOS
-    _scrollPosition.y += _velocity.y * dt;
-#elif defined(__CC_PLATFORM_MAC)
+//#ifdef __CC_PLATFORM_IOS
+//    _scrollPosition.y += _velocity.y * dt;
+//#elif defined(__CC_PLATFORM_MAC)
     _scrollPosition.y -= _velocity.y * dt;
-#endif
+//#endif
     
     [self onScrollUpdate];
 }
@@ -268,7 +275,7 @@
     _lastTime = event.timestamp;
     
     [self touchBegan:pos];
-    return NO;
+    return (!_consumeTouches);
 }
 
 -(BOOL) ccMouseDragged:(NSEvent *)event
@@ -280,13 +287,13 @@
     _lastTime = time;
     
     [self touchMoved:pos interval:interval];
-    return NO;
+    return (!_consumeTouches);
 }
 
 -(BOOL) ccMouseUp:(NSEvent *)event
 {
     [self touchEnded];
-    return NO;
+    return (!_consumeTouches);
 }
 
 #endif

@@ -17,7 +17,8 @@
 @property CGPoint   releasePosition;
 @property CGPoint   dragPosition;
 @property Float32   zoom;
-
+@property bool      consumeTouches;
+@property bool      hasTouches;
 @property bool      enabled;
 
 - (void) onTouchBegan;
