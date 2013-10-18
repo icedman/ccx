@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		440F14501753B370006E0287 /* CCXFlexBoxFactory+items.m in Sources */ = {isa = PBXBuildFile; fileRef = 440F144F1753B370006E0287 /* CCXFlexBoxFactory+items.m */; };
 		446E4D65173E892E00AD5020 /* debugSprite.png in Resources */ = {isa = PBXBuildFile; fileRef = 446E4D64173E892E00AD5020 /* debugSprite.png */; };
-		44974624174CBF9A00FB28F3 /* CCXBoxLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 44974623174CBF9A00FB28F3 /* CCXBoxLayout.m */; };
 		44974627174CC1A900FB28F3 /* LayoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44974626174CC1A900FB28F3 /* LayoutTest.m */; };
 		44C97BF0173D2C8B007454A9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C97BEF173D2C8B007454A9 /* QuartzCore.framework */; };
 		44C97BF2173D2C8B007454A9 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C97BF1173D2C8B007454A9 /* OpenGL.framework */; };
@@ -132,12 +131,10 @@
 		44C97D7E173D2C8E007454A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C97D7D173D2C8E007454A9 /* AppDelegate.m */; };
 		44C97D81173D2C8E007454A9 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C97D80173D2C8E007454A9 /* HelloWorldLayer.m */; };
 		44C97D8B173D2D00007454A9 /* CCLabelBMFont+Format.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C97D88173D2D00007454A9 /* CCLabelBMFont+Format.m */; };
-		44C97D8C173D2D00007454A9 /* CCNode+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C97D8A173D2D00007454A9 /* CCNode+Layout.m */; };
 		44C97D91173D2DA4007454A9 /* konqa32-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 44C97D8D173D2DA4007454A9 /* konqa32-hd.fnt */; };
 		44C97D92173D2DA4007454A9 /* konqa32-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 44C97D8E173D2DA4007454A9 /* konqa32-hd.png */; };
 		44C97D93173D2DA4007454A9 /* konqa32.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 44C97D8F173D2DA4007454A9 /* konqa32.fnt */; };
 		44C97D94173D2DA4007454A9 /* konqa32.png in Resources */ = {isa = PBXBuildFile; fileRef = 44C97D90173D2DA4007454A9 /* konqa32.png */; };
-		44D53B34173DD5B800F5357D /* CCXScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 44D53B33173DD5B800F5357D /* CCXScrollLayer.m */; };
 		44D7E78A1752E542009A94CF /* CCXFlexBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 44D7E7891752E542009A94CF /* CCXFlexBox.m */; };
 		44D7E78D1752E6EA009A94CF /* FlexTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44D7E78C1752E6EA009A94CF /* FlexTest.m */; };
 		44F085C917535D8500243D39 /* holyGrail.xml in Resources */ = {isa = PBXBuildFile; fileRef = 44F085C817535D8500243D39 /* holyGrail.xml */; };
@@ -148,8 +145,6 @@
 		440F144E1753B370006E0287 /* CCXFlexBoxFactory+items.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCXFlexBoxFactory+items.h"; sourceTree = "<group>"; };
 		440F144F1753B370006E0287 /* CCXFlexBoxFactory+items.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCXFlexBoxFactory+items.m"; sourceTree = "<group>"; };
 		446E4D64173E892E00AD5020 /* debugSprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = debugSprite.png; path = Resources/debugSprite.png; sourceTree = "<group>"; };
-		44974622174CBF9A00FB28F3 /* CCXBoxLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCXBoxLayout.h; sourceTree = "<group>"; };
-		44974623174CBF9A00FB28F3 /* CCXBoxLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCXBoxLayout.m; sourceTree = "<group>"; };
 		44974625174CC1A800FB28F3 /* LayoutTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutTest.h; sourceTree = "<group>"; };
 		44974626174CC1A900FB28F3 /* LayoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutTest.m; sourceTree = "<group>"; };
 		44C97BEC173D2C8B007454A9 /* Cocos 2d Extensions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cocos 2d Extensions.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,14 +414,10 @@
 		44C97D80173D2C8E007454A9 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		44C97D87173D2D00007454A9 /* CCLabelBMFont+Format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCLabelBMFont+Format.h"; sourceTree = "<group>"; };
 		44C97D88173D2D00007454A9 /* CCLabelBMFont+Format.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCLabelBMFont+Format.m"; sourceTree = "<group>"; };
-		44C97D89173D2D00007454A9 /* CCNode+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+Layout.h"; sourceTree = "<group>"; };
-		44C97D8A173D2D00007454A9 /* CCNode+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCNode+Layout.m"; sourceTree = "<group>"; };
 		44C97D8D173D2DA4007454A9 /* konqa32-hd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "konqa32-hd.fnt"; path = "Resources/konqa32-hd.fnt"; sourceTree = "<group>"; };
 		44C97D8E173D2DA4007454A9 /* konqa32-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "konqa32-hd.png"; path = "Resources/konqa32-hd.png"; sourceTree = "<group>"; };
 		44C97D8F173D2DA4007454A9 /* konqa32.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = konqa32.fnt; path = Resources/konqa32.fnt; sourceTree = "<group>"; };
 		44C97D90173D2DA4007454A9 /* konqa32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = konqa32.png; path = Resources/konqa32.png; sourceTree = "<group>"; };
-		44D53B32173DD5B800F5357D /* CCXScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCXScrollLayer.h; sourceTree = "<group>"; };
-		44D53B33173DD5B800F5357D /* CCXScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCXScrollLayer.m; sourceTree = "<group>"; };
 		44D7E7881752E542009A94CF /* CCXFlexBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCXFlexBox.h; sourceTree = "<group>"; };
 		44D7E7891752E542009A94CF /* CCXFlexBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCXFlexBox.m; sourceTree = "<group>"; };
 		44D7E78B1752E6EA009A94CF /* FlexTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlexTest.h; sourceTree = "<group>"; };
@@ -490,12 +481,6 @@
 				44C97D7D173D2C8E007454A9 /* AppDelegate.m */,
 				44C97D87173D2D00007454A9 /* CCLabelBMFont+Format.h */,
 				44C97D88173D2D00007454A9 /* CCLabelBMFont+Format.m */,
-				44C97D89173D2D00007454A9 /* CCNode+Layout.h */,
-				44C97D8A173D2D00007454A9 /* CCNode+Layout.m */,
-				44974622174CBF9A00FB28F3 /* CCXBoxLayout.h */,
-				44974623174CBF9A00FB28F3 /* CCXBoxLayout.m */,
-				44D53B32173DD5B800F5357D /* CCXScrollLayer.h */,
-				44D53B33173DD5B800F5357D /* CCXScrollLayer.m */,
 				44C97D7F173D2C8E007454A9 /* HelloWorldLayer.h */,
 				44C97D80173D2C8E007454A9 /* HelloWorldLayer.m */,
 				44974625174CC1A800FB28F3 /* LayoutTest.h */,
@@ -1083,9 +1068,6 @@
 				44C97D7E173D2C8E007454A9 /* AppDelegate.m in Sources */,
 				44C97D81173D2C8E007454A9 /* HelloWorldLayer.m in Sources */,
 				44C97D8B173D2D00007454A9 /* CCLabelBMFont+Format.m in Sources */,
-				44C97D8C173D2D00007454A9 /* CCNode+Layout.m in Sources */,
-				44D53B34173DD5B800F5357D /* CCXScrollLayer.m in Sources */,
-				44974624174CBF9A00FB28F3 /* CCXBoxLayout.m in Sources */,
 				44974627174CC1A900FB28F3 /* LayoutTest.m in Sources */,
 				44D7E78A1752E542009A94CF /* CCXFlexBox.m in Sources */,
 				44D7E78D1752E6EA009A94CF /* FlexTest.m in Sources */,
